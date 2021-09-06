@@ -5,7 +5,7 @@
 
 - O objetivo deste repositório é disponibilizar o script utilizado para análise dos dados do
 resumo que será submetido ao Salão Universitário da Universidade Católica de Pelotas (UCPel)
-do ano de 2021.
+do ano de 2021 pela acadêmica Maria Fernanda Nieves.
 
 ## Figuras finais para apresentação
 
