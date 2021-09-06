@@ -33,8 +33,10 @@ ds <- ds %>%
         mini_i08_t2 == 1 |
         mini_i09_t2 == 1 ~ 1,
       TRUE ~ 0)) %>%
-  dplyr::mutate(dplyr::across(c("cocaina2_t2", "tabaco2_t2", "alcool2_t2", "maconha2_t2"),
-    ~ tidyr::replace_na(.x, 0))) %>%
+  dplyr::mutate(
+    dplyr::across(c("cocaina2_t2", "tabaco2_t2", "alcool2_t2", "maconha2_t2"),
+      ~ tidyr::replace_na(.x, 0))
+  ) %>%
   dplyr::rename(bipolar = bipolar_conferido,
     tpanico = mini_e08b_t2)
 
@@ -44,9 +46,12 @@ chi <- ds %>%
   dplyr::select(a03sexo_t2, depressao, bipolar, tag,
     tept, tpanico, fobsoc, toc, alcool2_t2, cocaina2_t2,
     maconha2_t2, tabaco2_t2) %>%
-    tidyr::gather(key = variable, value = value, -a03sexo_t2) %>%
-    dplyr::group_by(variable) %>%
-    dplyr::do(chisq.test(.$a03sexo_t2, .$value) %>% broom::tidy()) %>%
+  tidyr::gather(key = variable, value = value, -a03sexo_t2) %>%
+  dplyr::group_by(variable) %>%
+  dplyr::do(
+    chisq.test(.$a03sexo_t2, .$value) %>%
+      broom::tidy()
+  ) %>%
   dplyr::select(-parameter, -method) %>%
   dplyr::mutate(variable = stringr::str_remove(variable, pattern = "_t2")) %>%
   dplyr::mutate(sig = ifelse(p.value < 0.05, "Sim", "Não")) %>%
@@ -71,6 +76,7 @@ or
 
 # Visualize --------------------------------------------------------------------
 
+# tema minimal
 ggplot2::theme_set(ggplot2::theme_minimal())
 
 # figura 1
@@ -78,10 +84,9 @@ fig_1 <- ds %>%
   dplyr::select(a03sexo_t2, depressao, bipolar, tag,
     tept, tpanico, fobsoc, toc, alcool2_t2, cocaina2_t2,
     maconha2_t2, tabaco2_t2) %>%
-  tidyr::gather(key = variable, value = value, -a03sexo_t2) %>%
-  #dplyr::mutate(value = ifelse(
-  #  stringr::str_detect(string = value, pattern = "Não"),
-  #  0, 1)) %>%
+  tidyr::gather(key = variable,
+    value = value,
+    -a03sexo_t2) %>%
   dplyr::group_by(variable, a03sexo_t2) %>%
   dplyr::summarise(freq = mean(value == 1)) %>%
   ggplot2::ggplot(ggplot2::aes(as.factor(variable),
@@ -125,7 +130,8 @@ fig_2 <- or %>%
     xmax=conf.high),
     height=.3) +
   ggplot2::geom_vline(xintercept=1, linetype='longdash') +
-  ggplot2::scale_y_discrete(labels = c("alcool2" = "Abuso/dependência de álcool",
+  ggplot2::scale_y_discrete(labels = c(
+    "alcool2" = "Abuso/dependência de álcool",
     "bipolar_conferido" = "Transtorno bipolar",
     "cocaina2" = "Abuso/dependência de cocaína",
     "depressao" = "Transtorno depressivo maior",
@@ -135,7 +141,8 @@ fig_2 <- or %>%
     "tag" = "Transtorno de ansiedade generalizada",
     "toc" = "Transtorno obsessivo-compulsivo",
     "tept" = "Transtorno de estresse pós-traumático",
-    "tpanico" = "Transtorno de pânico")) +
+    "tpanico" = "Transtorno de pânico"
+  )) +
   ggplot2::coord_cartesian(xlim = c(0, 8),
     expand = TRUE) +
   ggplot2::scale_x_continuous(breaks = seq(0, 8)) +
@@ -143,7 +150,8 @@ fig_2 <- or %>%
     legend.position = "top",
     legend.title = ggplot2::element_blank(),
     legend.direction = "horizontal") +
-  ggplot2::labs(x = "Odds Ratio (razão de chances)", y = "Transtorno mental") +
+  ggplot2::labs(x = "Odds Ratio (razão de chances)",
+    y = "Transtorno mental") +
   ggplot2::scale_color_viridis_d(option = "D", name = "", direction = -1)
 
 fig_2
