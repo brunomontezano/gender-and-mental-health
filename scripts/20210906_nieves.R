@@ -152,7 +152,7 @@ ggplot2::ggsave(filename = "figures/figure1.png",
   plot = fig_1,
   dpi = 300)
 
-ggplot2::ggsave(filename = "output/figure2.png",
+ggplot2::ggsave(filename = "figures/figure2.png",
   plot = fig_2,
   dpi = 300)
 
