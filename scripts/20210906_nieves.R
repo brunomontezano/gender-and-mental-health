@@ -50,7 +50,7 @@ chi <- ds %>%
   dplyr::select(-parameter, -method) %>%
   dplyr::mutate(variable = stringr::str_remove(variable, pattern = "_t2")) %>%
   dplyr::mutate(sig = ifelse(p.value < 0.05, "Sim", "Não")) %>%
-  dplyr::mutate(dplyr::across(where(is.numeric), round, 5))
+  dplyr::mutate(dplyr::across(where(is.numeric), round, 10))
 
 chi
 
@@ -64,7 +64,8 @@ or <- ds %>%
   purrr::map(broom::tidy) %>%
   dplyr::bind_rows(.id = "transtorno") %>%
   dplyr::select(-method, -alternative) %>%
-  dplyr::mutate(transtorno = stringr::str_remove(transtorno, pattern = "_t2"))
+  dplyr::mutate(transtorno = stringr::str_remove(transtorno, pattern = "_t2")) %>%
+  dplyr::mutate(dplyr::across(where(is.numeric), round, 10))
 
 or
 
