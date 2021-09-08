@@ -49,7 +49,7 @@ chi <- ds %>%
   tidyr::gather(key = variable, value = value, -a03sexo_t2) %>%
   dplyr::group_by(variable) %>%
   dplyr::do(
-    chisq.test(.$a03sexo_t2, .$value) %>%
+    chisq.test(.$a03sexo_t2, .$value, simulate.p.value = TRUE) %>%
       broom::tidy()
   ) %>%
   dplyr::select(-parameter, -method) %>%
@@ -70,7 +70,7 @@ or <- ds %>%
   dplyr::bind_rows(.id = "transtorno") %>%
   dplyr::select(-method, -alternative) %>%
   dplyr::mutate(transtorno = stringr::str_remove(transtorno, pattern = "_t2")) %>%
-  dplyr::mutate(dplyr::across(where(is.numeric), round, 10))
+  dplyr::mutate(dplyr::across(where(is.numeric), round, 20))
 
 or
 
@@ -88,7 +88,7 @@ fig_1 <- ds %>%
     value = value,
     -a03sexo_t2) %>%
   dplyr::group_by(variable, a03sexo_t2) %>%
-  dplyr::summarise(freq = mean(value == 1)) %>%
+  dplyr::summarise(freq = mean(value == 1), .groups = "drop") %>%
   ggplot2::ggplot(ggplot2::aes(as.factor(variable),
     freq,
     fill = as.factor(a03sexo_t2))) +
@@ -132,7 +132,7 @@ fig_2 <- or %>%
   ggplot2::geom_vline(xintercept=1, linetype='longdash') +
   ggplot2::scale_y_discrete(labels = c(
     "alcool2" = "Abuso/dependência de álcool",
-    "bipolar_conferido" = "Transtorno bipolar",
+    "bipolar" = "Transtorno bipolar",
     "cocaina2" = "Abuso/dependência de cocaína",
     "depressao" = "Transtorno depressivo maior",
     "fobsoc" = "Fobia social",
