@@ -76,9 +76,6 @@ or
 
 # Visualize --------------------------------------------------------------------
 
-# tema minimal
-ggplot2::theme_set(ggplot2::theme_minimal())
-
 # figura 1
 fig_1 <- ds %>%
   dplyr::select(a03sexo_t2, depressao, bipolar, tag,
@@ -112,6 +109,7 @@ fig_1 <- ds %>%
     "tept" = "TEPT",
     "toc" = "TOC",
     "cocaina2_t2" = "Cocaína")) +
+  ggplot2::theme_light() +
   ggplot2::theme(text = ggplot2::element_text(size = 10))
 
 fig_1
@@ -146,13 +144,14 @@ fig_2 <- or %>%
   ggplot2::coord_cartesian(xlim = c(0, 8),
     expand = TRUE) +
   ggplot2::scale_x_continuous(breaks = seq(0, 8)) +
+  ggplot2::labs(x = "Odds Ratio (razão de chances)",
+    y = "Transtorno mental") +
+  ggplot2::scale_color_viridis_d(option = "D", name = "", direction = -1) +
+  ggplot2::theme_light() +
   ggplot2::theme(text = ggplot2::element_text(size = 10),
     legend.position = "top",
     legend.title = ggplot2::element_blank(),
     legend.direction = "horizontal") +
-  ggplot2::labs(x = "Odds Ratio (razão de chances)",
-    y = "Transtorno mental") +
-  ggplot2::scale_color_viridis_d(option = "D", name = "", direction = -1)
 
 fig_2
 
