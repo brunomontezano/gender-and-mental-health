@@ -95,7 +95,7 @@ fig_1 <- ds %>%
     name = "Gênero",
     labels = c("Masculino", "Feminino"),
     direction = -1) +
-  ggplot2::labs(x = "Transtorno mental",
+  ggplot2::labs(x = "",
     y = "Prevalência de sujeitos com o transtorno (%)") +
   ggplot2::scale_x_discrete(labels = c("alcool2_t2" = "Álcool",
     "bipolar" = "TB",
@@ -110,7 +110,8 @@ fig_1 <- ds %>%
     "toc" = "TOC",
     "cocaina2_t2" = "Cocaína")) +
   ggplot2::theme_light() +
-  ggplot2::theme(text = ggplot2::element_text(size = 8))
+  ggplot2::theme(text = ggplot2::element_text(size = 10),
+    axis.text.x = ggplot2::element_text(angle = 45, vjust = 1, hjust = 1))
 
 fig_1
 
