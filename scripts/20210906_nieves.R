@@ -110,7 +110,7 @@ fig_1 <- ds %>%
     "toc" = "TOC",
     "cocaina2_t2" = "Cocaína")) +
   ggplot2::theme_light() +
-  ggplot2::theme(text = ggplot2::element_text(size = 9))
+  ggplot2::theme(text = ggplot2::element_text(size = 8))
 
 fig_1
 
