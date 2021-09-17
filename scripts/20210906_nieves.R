@@ -110,7 +110,7 @@ fig_1 <- ds %>%
     "toc" = "TOC",
     "cocaina2_t2" = "Cocaína")) +
   ggplot2::theme_light() +
-  ggplot2::theme(text = ggplot2::element_text(size = 10))
+  ggplot2::theme(text = ggplot2::element_text(size = 9))
 
 fig_1
 
@@ -151,7 +151,7 @@ fig_2 <- or %>%
   ggplot2::theme(text = ggplot2::element_text(size = 10),
     legend.position = "top",
     legend.title = ggplot2::element_blank(),
-    legend.direction = "horizontal") +
+    legend.direction = "horizontal")
 
 fig_2
 
