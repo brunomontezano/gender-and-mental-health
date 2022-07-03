@@ -4,10 +4,10 @@
 # Imports
 import pandas as pd
 import numpy as np
-from scipy.stats import chi2_contingency 
+from scipy.stats import chi2_contingency
 
 # Read dataset
-df = pd.read_csv('data/coorte-t1-t2-24-08-17.csv')
+df = pd.read_csv('../data/coorte-t1-t2-24-08-17.csv')
 
 # Print dataset
 print(df)
@@ -17,7 +17,9 @@ df_t2 = df.loc[(df["Bipolar_conferido"] == "1") | (df["Bipolar_conferido"] == "0
 
 # Check some counts
 df_t2['Bipolar_conferido'].value_counts()
+
 df_t2['depressao'].value_counts()
+
 df_t2['a03sexo_t2'].value_counts()
 
 # Create cross-table to perform chi-squared test on

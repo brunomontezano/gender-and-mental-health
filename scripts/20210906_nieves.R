@@ -91,10 +91,10 @@ fig_1 <- ds %>%
     fill = as.factor(a03sexo_t2))) +
   ggplot2::geom_col(position = "dodge") +
   ggplot2::scale_y_continuous(labels = scales::percent_format()) +
-  ggplot2::scale_fill_viridis_d(option = "D",
+  ggplot2::scale_fill_manual(
+    values = c("#56b6d8", "#f7aa4f"),
     name = "Gênero",
-    labels = c("Masculino", "Feminino"),
-    direction = -1) +
+    labels = c("Masculino", "Feminino")) +
   ggplot2::labs(x = "",
     y = "Prevalência de sujeitos com o transtorno (%)") +
   ggplot2::scale_x_discrete(labels = c("alcool2_t2" = "Álcool",
